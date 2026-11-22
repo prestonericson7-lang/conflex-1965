@@ -82,3 +82,32 @@ and 0.184 on P2's shifts.
 **Which scanner P3 and P4 are graded on.** P3 and P4 were filed before either scanner existed. They are graded on the design as first fixed
 (1-band strips, DESIGN.md, 10:05 AM), because that is the one fixed before any result. The same runs on the 2-band scanner are reported beside
 each grade, whatever P1b, P2b and P1c show.
+
+## Grades of P1b, P2b and P1c, 10:09 AM (MEASURED; results/a1.json; test_a1.py)
+
+- **P1b: FAILED.** With 2-band strips, over the 12 turns: L0 within 2.5% (128 to 134), steadier than before; L1 8 to 20,
+  L2 0 to 20, L3 0 to 14, L5 16 to 56; L4 never fires.
+- **P2b: FAILED.** Over the 13 shifts: L0 within 4.3% (128 to 138); L1 6 to 18, L2 0 to 4, L5 16 to 32; L3 and L4 never fire.
+- **P1c: FAILED.** The spread went from 0.214 to 0.266 on the turns and from 0.184 to 0.159 on the shifts: not halved.
+
+**What these grades say.** A1 was the wrong cure. Sampling the sweep at the patent's rate steadied L0, but the fine filters move as much as
+before. The turns show what drives them: at 0 degrees, with the tracks level, L2 and L3 never fire and L5 fires 16 times; at 30 degrees
+they fire 20, 14 and 50 times. The tracks' fine pattern (eight lines 5 pixels apart) shows in a strip's video only when the strip lies
+within about 2 degrees of square to the tracks; past that, the 70-pixel tracks smear across their own spacing. With 64 strips 5.6 degrees
+apart, whether any strip falls inside that window depends on how the railyard is turned. The scan samples the turn too coarsely: A1's
+mistake again, in angle instead of along the sweep.
+
+## Amendment A2, filed 10:09 AM, after the grades of A1 and before any run of what it describes
+
+A2 applies to the turn the rule A1 applied to the sweep: between one strip and the next, no point of the field may move more than one band.
+A point at the field's edge, 64 pixels out, moves 2 pi 64 / K pixels from one strip to the next, so K is at least 403 (2 pi x 64 = 402.1).
+A2 is A1 (2-band strips) with 403 strips. 403 = 13 x 31, so none of P1's turns lines up with the strips, quarter turns included. Everything
+else is unchanged. In the code it is prenorm.counts(img, strip=2, strips=403).
+
+**P1d (55%).** With A2, P1's test: each of the six counts within 15% of its mean over the 12 turns.
+
+**P2d (45%).** With A2, P2's test: each count within 15% of its mean over the 13 shifts.
+
+**P1e (70%).** With A2, the spread (as in P1c) is at most half the first design's (0.214 on the turns, 0.184 on the shifts), on both sets.
+
+**P3 and P4** stay graded on the first design. The runs reported beside their grades are now on the A2 scanner, not A1's.

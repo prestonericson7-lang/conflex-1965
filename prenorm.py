@@ -17,13 +17,17 @@ BANDS = np.stack([(((_hx * CK[k] + _hy * SK[k]) >> Q) >> 1) + N // 2 for k in ra
 assert BANDS.min() >= 0 and BANDS.max() < N
 L = np.round(127 * np.cos(np.pi * np.outer(np.arange(1, 7), np.arange(T) + 0.5) / T)).astype(np.int64)   # L0..L5: cosines k = 1..6, integer weights
 
-def scan(img):
-    """One full turn of the integral scanner's video: 64 pulses of 128 line integrals, each followed by 16 samples of dark spacer."""
+def scan(img, strip=1):
+    """One full turn of the integral scanner's video: 64 pulses, each followed by 16 samples of dark spacer. With strip=1 (the design as first
+    fixed) a pulse is the 128 one-pixel bands' line integrals; with strip=2 (amendment A1, the patent's 2T(omega)0 rule) each sample is the sum
+    of two neighboring bands, 129 samples as the strip enters, crosses and leaves the field."""
     v = np.asarray(img, np.int64).ravel()[_disk]
     parts = []
     for k in range(K):
         pk = np.rint(np.bincount(BANDS[k], weights=v, minlength=N)).astype(np.int64)    # float sums of integers below 2^53 are exact
         assert pk.sum() == v.sum()
+        if strip > 1:
+            pk = np.convolve(pk, np.ones(strip, np.int64)); assert pk.dtype == np.int64 and pk.sum() == strip * v.sum()
         parts += [pk, np.zeros(GAP, np.int64)]
     return np.concatenate(parts)
 
@@ -43,6 +47,6 @@ def counts_of_video(video):
     rising = e & ~np.vstack([np.zeros((1, e.shape[1]), bool), e[:-1]])
     return [int(x) for x in rising.sum(0)]
 
-def counts(img):
+def counts(img, strip=1):
     """The six counters after one full turn."""
-    return counts_of_video(scan(img))
+    return counts_of_video(scan(img, strip))
