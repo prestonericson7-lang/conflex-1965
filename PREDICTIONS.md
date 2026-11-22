@@ -49,3 +49,36 @@ NumPy's PCG64 instead, every gap is within 0.04 points (within 1.9 standard erro
 so this is a flaw of my test, and the rule from here on is: the machine's own wiring comes from the M-sequence, as in the patent's sequential
 version; everything a test draws at random (stimuli, rotations, positions, which examples train and which are held out) comes from PCG64 with
 fixed seeds, sharing nothing with the machine.
+
+## Grades of P1 and P2, 10:07 AM (MEASURED; results/p1p2.json; test_p1p2.py, the turns and shifts fixed in DESIGN.md)
+
+- **P1: FAILED.** Over the 12 turns the six counts' means are 133.3, 4.7, 6.7, 4.0, 0.0, 26.0. L0's count stays within 7.0% of its mean (124 to 142);
+  the other five do not: L1 2 to 8, L2 0 to 12, L3 0 to 6, L5 12 to 38, and L4 never fires on the railyard.
+- **P2: FAILED.** Over the 13 shifts the means are 131.4, 3.1, 0.5, 0.0, 0.0, 15.4. L0 stays within 8.1% (122 to 142); L1 2 to 6,
+  L2 0 to 2, L5 12 to 28; L3 and L4 never fire.
+
+**What the grades leave out, said plainly.** Only three of P1's twelve turns are different tests: a turn of 90 degrees is exactly 16 strips and
+the pixel grid turns onto itself, so 0, 90, 180 and 270 degrees give identical counts, as do 30, 120, 210 and 300, and 60, 150, 240 and 330.
+The broad filter L0, the half cosine that answers any rising or falling stretch of the scan, is steady under turns and shifts alike. The five
+finer filters fire rarely, and their counts move with the turn and the shift. The likely cause is mine. The patent asks for "2T(omega)0 taps to
+adequately represent the video and the reference function": two samples per cycle of the video's highest frequency. A strip one band wide
+passes detail up to one cycle per pixel, so its video needs a sample every half pixel, and DESIGN.md samples it once per pixel. The fine
+filters' events then depend on where each 1.5-pixel track falls between samples, which is exactly what turning and shifting change.
+
+## Amendment A1, filed 10:07 AM, after the grades of P1 and P2 and before any run of what it describes
+
+A1 follows the patent's own sampling rule. Each strip is 2 bands wide, so each sample of the video is the sum of two neighboring one-pixel
+bands, and the strip's main lobe ends at half a cycle per pixel, which one sample per pixel represents. Nothing else changes: the same 64
+strips, the same 16 taps, L0 to L5, threshold and counters. In the code it is prenorm.counts(img, strip=2); strip=1 is the design as first fixed.
+
+**P1b (45%).** With 2-band strips, P1's test: each of the six counts within 15% of its mean over the 12 turns.
+
+**P2b (40%).** With 2-band strips, P2's test: each count within 15% of its mean over the 13 shifts.
+
+**P1c (65%).** The spread of all six counts together (each count's largest distance from its mean, summed over the six, over the sum of the
+six means) is at least halved by the 2-band strips, on P1's turns and on P2's shifts both. Under the first design it is 0.214 on P1's turns
+and 0.184 on P2's shifts.
+
+**Which scanner P3 and P4 are graded on.** P3 and P4 were filed before either scanner existed. They are graded on the design as first fixed
+(1-band strips, DESIGN.md, 10:05 AM), because that is the one fixed before any result. The same runs on the 2-band scanner are reported beside
+each grade, whatever P1b, P2b and P1c show.
