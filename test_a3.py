@@ -25,7 +25,8 @@ ratio = lambda g, n: g["max"][n] / g["min"][n] if g["min"][n] > 0 else float("in
 ra2 = (a2["P1d"]["max"][2] / a2["P1d"]["min"][2], a2["P1d"]["max"][3] / a2["P1d"]["min"][3])
 out = {"P1f": {"counts": c1, **g1}, "P2f": {"counts": c2, **g2}, "A2_ratios_L2_L3": ra2, "A3_ratios_L2_L3": (ratio(g1, 2), ratio(g1, 3))}
 out["P1g_held"] = ratio(g1, 2) <= ra2[0] / 2 and ratio(g1, 3) <= ra2[1] / 2
-json.dump(out, open("results/a3.json", "w"), indent=1)
+json.dump({**out, "A3_ratios_L2_L3": [r if r != float("inf") else None for r in out["A3_ratios_L2_L3"]]},    # null where unbounded:
+          open("results/a3.json", "w"), indent=1)                                                                  # Infinity is not JSON
 for k, g in (("P1f", g1), ("P2f", g2)):
     print(k, "held" if g["held_15pct"] else "FAILED", "| mean", g["mean"], "| min", g["min"], "| max", g["max"], "| worst", g["worst_rel_dev"], "| spread %.3f" % g["spread"])
 print("L2, L3 max/min ratios over the turns: A2", [round(x, 2) for x in ra2], "A3", [round(x, 2) for x in out["A3_ratios_L2_L3"]], "| P1g held:", out["P1g_held"])

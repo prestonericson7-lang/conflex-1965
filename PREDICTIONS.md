@@ -198,3 +198,27 @@ the patent says nothing about how many strips. The lines above are kept as writt
 
 (Beside the A3 grade above, 10:24 AM: only L2's events were traced to their strips. L4's movement was not traced, so "the last of the turn's
 effect lives in my film" is shown for L2 alone. The line is kept as written.)
+
+## The double-check, 10:53 AM (before publishing; MEASURED where it gives numbers)
+
+Every test and check was run again in a fresh clone of this repository, and every results file came out byte for byte the same, except
+p3p4_counts.json, whose only difference was the run's own time; it no longer saves that (p3p4.py prints it instead). a3.json held a ratio
+written as Infinity, which is not JSON; it is now null, and nothing else in the file changed. The patents' numbers, dates, inventors and
+assignee, and every quotation, were checked against the page images, and equation (21) against the printed page. The mends, each beside
+the lines it mends, which are kept as written:
+
+- (Beside "What is being rebuilt":) the paper's title is "CONFLEX I - A Conditioned Reflex System," 1962 IRE International Convention
+  Record, Part 4, page 132; the comma was mine. The prenormalizer's inventors are Malcolm R. Uffelman and Warren L. Holford; CONFLEX's
+  patent names Edward C. Driese, John S. Gerig, Malcolm R. Uffelman and Richard E. Williams; both patents are assigned to Scope.
+- (Beside the C1 grade:) "checked primitive" is now a file anyone can run: test_mseq.py, results/mseq.json.
+- (Beside the A1 grades:) the 2-degree window was reasoned, not measured. Measured since, on the A2 scanner (explore_where_events.py): it
+  holds for L5, which takes 59% of its events (at a turn of 0; 59% at 30 degrees) from the 3.5% of strips within 3 degrees of
+  square to the tracks. L1 to L4 take none of theirs from there.
+- (Beside the A2 grades:) the ripple from slanted strips was reasoned, not measured, and it has the direction wrong. Measured on the A2
+  scanner: at a turn of 30 degrees, L2 takes 87% of its events from the 29% of strips within 13 degrees of lined up with the grid,
+  L1 57% and L4 56%; at a turn of 0, where those same strips run along or square to the tracks, L2 takes none from
+  them. The effect follows the grid, as the grade says, but it comes from strips lined up with it, not from slanted ones.
+- (Beside the P4 note:) its reason was reasoned, not counted. Counted since (explore_p4_bias.py): railyards light 96.0 blocks a
+  picture on average, road grids 78.2, patchworks 70.7, airfields 61.9; the railyard M-field is the largest (35,598,
+  against road grids' 29,496, airfields' 25,733 and patchworks' 24,240) and gives the largest sum for 107 of the 120 held-out pictures. The note stands,
+  now counted.

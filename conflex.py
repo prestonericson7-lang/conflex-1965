@@ -1,9 +1,9 @@
-"""CONFLEX I, rebuilt from M. R. Uffelman, "CONFLEX I, A Conditioned Reflex System" (IRE International Convention Record, 1962) and
+"""CONFLEX I, rebuilt from M. R. Uffelman, "CONFLEX I - A Conditioned Reflex System" (1962 IRE International Convention Record, Part 4, p. 132) and
 US patent 3,295,103 (Driese, Gerig, Uffelman and Williams, assignors to Scope Incorporated; filed August 16, 1962).
 
-S-field: Ns binary sensory cells. D-field: Nd D-cells, each "a majority decision gate" with A affirmative and N negative inputs chosen at
+S-field: Ns binary sensory cells. D-field: Nd D-cells ("The D-cells are majority decision gates"), each with A affirmative and N negative inputs chosen at
 random from the S-field ("once the connections are selected they remain fixed"); its output is +1, 0 or -1 as the affirmative sum is greater
-than, equal to, or less than the negative sum. M-fields: one per class; "the gain of each M-cell is changed by the amount of the associated
+than, equal to, or less than the negative sum. M-fields: one per class; "The gain of each M-cell is changed by the amount of the associated
 D-cell's output" for every teaching stimulus of its class. Test: each M-field's sum of M-cell gain times D-cell output (a dot product); the
 comparator names the largest. The random wiring comes from a maximal-length shift register, as the patent's sequential version did.
 """

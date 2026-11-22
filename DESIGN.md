@@ -42,3 +42,10 @@ toward each of 4 directions 90 degrees apart: 13 positions, all inside the field
 **Randomness.** The machine's own wiring comes from the M-sequence, as in the CONFLEX patent's sequential version. Everything a test draws at
 random (stimuli, turns, positions, which examples train and which are held out) comes from NumPy's PCG64 with fixed seeds, sharing nothing
 with the machine: the lesson of C1. P1 and P2 draw nothing at random.
+
+(Beside "The integral scanner", 10:53 AM: "the test cannot pass by a shortcut" was wrong in part. A turn of 90 degrees is exactly 16
+strips and the pixel grid turns onto itself, so turns 90 degrees apart gave identical counts, and P1's twelve turns were three tests; the
+P1 grade says so. The line is kept as written.)
+
+(Beside "The railyard", 10:53 AM: the farthest corner ends 47.5 pixels from the center, not 47.1; I left out the tracks' half-width. The line
+is kept as written.)

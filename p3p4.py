@@ -23,9 +23,8 @@ def stage_counts():
             rows.append({"kind": k, "meta": meta, "first": P.counts(img), "a2": P.counts(img, 2, 403),
                          "raw_on": np.flatnonzero(blocks >= 256).tolist()})
         rec[split] = rows
-    rec["seconds"] = round(time.time() - t0, 1)
-    json.dump(rec, open("results/p3p4_counts.json", "w"))
-    print("pictures read:", sum(len(rec[s]) for s in ("teach", "held")), "in", rec["seconds"], "s")
+    json.dump(rec, open("results/p3p4_counts.json", "w"))            # the run's time is printed, not saved: it differs from run to run
+    print("pictures read:", sum(len(rec[s]) for s in ("teach", "held")), "in", round(time.time() - t0, 1), "s")
 
 def thermo(teach, rows):
     lo, hi = teach.min(0), teach.max(0); X = np.zeros((len(rows), 96), np.int64)

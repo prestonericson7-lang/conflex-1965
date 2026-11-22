@@ -1,0 +1,5 @@
+{
+ "recurrence_a[n+31]=a[n]^a[n+3]": true,
+ "x^31+x^3+1_irreducible_so_primitive": true,
+ "x^31+x^28+1_irreducible_so_primitive": true
+}

@@ -1,0 +1,28 @@
+{
+ "railyard": {
+  "lit_blocks_mean": 96.03333333333333,
+  "active_d_share": 0.5098333333333334,
+  "m_field_size": 35598
+ },
+ "airfield": {
+  "lit_blocks_mean": 61.9,
+  "active_d_share": 0.40492500000000003,
+  "m_field_size": 25733
+ },
+ "road grid": {
+  "lit_blocks_mean": 78.2,
+  "active_d_share": 0.4506666666666667,
+  "m_field_size": 29496
+ },
+ "patchwork": {
+  "lit_blocks_mean": 70.73333333333333,
+  "active_d_share": 0.42306666666666665,
+  "m_field_size": 24240
+ },
+ "largest_sum_wins_over_held_out": {
+  "railyard": 107,
+  "airfield": 4,
+  "road grid": 4,
+  "patchwork": 5
+ }
+}

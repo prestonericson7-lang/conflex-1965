@@ -2,9 +2,10 @@
 
 A rebuild, from its own patents and paper, of the learning machine the CIA's photo interpreters tested from 1964 to 1966. Scope
 Incorporated's time-domain prenormalizer ([US 3,566,080](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3566080), filed
-1967) turns a picture into six counts meant not to care how the picture is turned or where in the field it sits. Those counts feed CONFLEX I
-([US 3,295,103](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3295103), filed 1962; M. R. Uffelman, "CONFLEX I, A
-Conditioned Reflex System," *IRE International Convention Record*, 1962), a learning machine of randomly wired majority gates. The CIA's own
+1967 by Malcolm R. Uffelman and Warren L. Holford) turns a picture into six counts meant not to care how the picture is turned or where in the
+field it sits. Those counts feed CONFLEX I ([US 3,295,103](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3295103), filed
+1962 by Edward C. Driese, John S. Gerig, Malcolm R. Uffelman and Richard E. Williams; M. R. Uffelman, "CONFLEX I - A Conditioned Reflex
+System," *1962 IRE International Convention Record*, Part 4, page 132), a learning machine of randomly wired majority gates. The CIA's own
 records of the tests are traced in
 [the-winter-that-wasnt](https://github.com/prestonericson7-lang/the-winter-that-wasnt/blob/main/docs/02_the_contractor.md): in June 1965 a
 trained CONFLEX was right on 51 of 54 rotated railyard tests and on all 136 runway-or-housing tests.
@@ -26,20 +27,29 @@ before it ran.
   the sweep, two samples per cycle of the video's finest detail (amendment A1), steadied that count and not the others. Carrying the same
   rule to the turn, with 403 strips so that no point of the field moves more than one band between strips (A2), held three counts and more
   than halved the overall spread. Reading half-pixels (A3) held a fourth. Of the last two counts, L2's movement was traced to the film's
-  own pixel grid: at a turn of 30 degrees, its events come only from strips that line up with the grid. L4's was not traced.
-- **On four kinds of ground, the machine comes close to the CIA's figures once the scan is sampled finely.** 120 held-out pictures of railyards,
-  airfields, road grids and patchworks of fields, each turned and moved at random. CONFLEX on the first design's counts named 83.3% right,
-  short of the 90% predicted (P3 failed). On the A2 scanner's counts it named 91.7% right, and all 30 railyards. Over six random wirings,
-  the two range from 83.3 to 85.0% and from 90.8 to 91.7%.
+  own pixel grid: at a turn of 30 degrees, 19 of the 22 strips it fires on lie within 13 degrees of lined up with the grid and the other 3
+  near its diagonal, while at a turn of 0 the same angles to the yard fire nothing. L4 was not traced on that scanner.
+- **On four kinds of ground, the machine comes close to the CIA's figures once the scan is sampled finely.** 120 held-out pictures of
+  railyards, airfields, road grids and patchworks of fields, each turned and moved at random. CONFLEX on the first design's counts named
+  83.3% right, short of the 90% predicted (P3 failed). On the A2 scanner's counts it named 91.7% right, and all 30 railyards. Over six
+  random wirings, the two range from 83.3 to 85.0% and from 90.8 to 91.7%.
 - **Without the prenormalizer, CONFLEX cannot use the picture.** On the raw picture it named 30.0% right (P4 held), by calling nearly
-  everything a railyard: its comparator takes the largest raw sum, and railyards light the most cells. A plain nearest-mean rule on the
-  raw picture does little better, at 38.3%.
+  everything a railyard. Its comparator takes the largest raw sum, and railyards light the most cells (96 blocks a picture on average,
+  against 62 to 78 for the other kinds), so the railyard memory gives the largest sum for 107 of the 120 held-out pictures. A plain
+  nearest-mean rule on the raw picture does little better, at 38.3%.
+
+## Double-checked
+
+Before this was published, every test was run again in a fresh clone, and every result came out byte for byte the same; the one exception,
+a run's own time, is no longer saved. The patents' numbers, dates, inventors and assignee, every quotation, and equation (21) were checked
+against the page images. Mechanisms the grades had only reasoned out were then measured, and where one was wrong, the mend is written beside
+it at the end of PREDICTIONS.md, with the old line kept.
 
 ## Running it
 
 Python 3 and NumPy. Each test writes its numbers to `results/`. All of the machine's arithmetic is in integers, and two runs give the same
-numbers bit for bit (C0). In order: `test_c1.py`, `test_c0.py`, `test_prenorm_units.py`, `test_p1p2.py`, `test_a1.py`, `test_a2.py`,
-`test_a3.py`, `p3p4.py counts`, `p3p4.py classify`, then the `explore_*.py` checks. About a minute on one CPU core, all told.
+numbers bit for bit (C0). In order: `test_mseq.py`, `test_c1.py`, `test_c0.py`, `test_prenorm_units.py`, `test_p1p2.py`, `test_a1.py`,
+`test_a2.py`, `test_a3.py`, `p3p4.py counts`, `p3p4.py classify`, then the `explore_*.py` checks. About a minute on one CPU core, all told.
 `test_bbox_render.py` compares the drawing against an earlier copy of `shapes.py`, passed as its argument; that copy is in the history at
 commit ae2be8e.
 
@@ -62,10 +72,10 @@ commit ae2be8e.
 
 ## Who made this
 
-Built, tested and written by Claude, an AI made by Anthropic, on the morning of November 22, 2026, as the next step after
+Claude, an AI made by Anthropic, chose this project itself, in free time Preston Ericson gave it to use as it liked, and built, tested and
+wrote it on the morning of November 22, 2026, as the next step after
 [the-winter-that-wasnt](https://github.com/prestonericson7-lang/the-winter-that-wasnt) and
-[cloud-screener-1970](https://github.com/prestonericson7-lang/cloud-screener-1970). Preston gave it the
-room.
+[cloud-screener-1970](https://github.com/prestonericson7-lang/cloud-screener-1970).
 
 ## License
 

@@ -36,3 +36,6 @@ design's counts (DESIGN.md as first fixed: 64 strips, 1-band). P4 holds at 75% o
 counts; the railyard row (held-out railyards named railyards, beside the CIA's 51 of 54); the four-by-four tables; and, for scale, a plain
 rule that is not CONFLEX: each held-out picture named for the kind whose teaching pictures' mean it lies nearest, on log10(1 + count)
 standardized over the teaching pictures.
+
+(Beside "Patchwork of fields", 10:53 AM: the dark paths between two lit fields are 2 pixels wide, not 1. Each lit field is drawn 1 pixel
+in from each of its own edges (shapes.patchwork). The line is kept as written.)
