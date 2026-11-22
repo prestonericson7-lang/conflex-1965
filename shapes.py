@@ -10,15 +10,22 @@ _p = np.arange(N) + 0.5 - N / 2
 PX, PY = np.meshgrid(_p, _p)
 DISK = PX ** 2 + PY ** 2 <= RADIUS ** 2               # pixel centers inside the scanner's field
 
-def render(strips):
+def render(strips, fine=1):
+    """The picture as integer pixels (fine=1), or each pixel read as fine x fine parts, each the count of its own (8/fine)^2 sub-points (amendment
+    A3 reads fine=2). The same total light either way; the scanner's field is the same disk of whole pixels."""
     inside = np.zeros(SX.shape, bool)
     for (x0, y0, x1, y1, w) in strips:
         dx, dy = x1 - x0, y1 - y0; length = math.hypot(dx, dy); ux, uy = dx / length, dy / length
         rx, ry = SX - x0, SY - y0
         along = rx * ux + ry * uy; across = ry * ux - rx * uy
         inside |= (along >= 0) & (along <= length) & (np.abs(across) <= w / 2)
-    img = inside.reshape(N, SUB, N, SUB).sum(axis=(1, 3)).astype(np.int64)
-    img[~DISK] = 0
+    if fine == 1:
+        img = inside.reshape(N, SUB, N, SUB).sum(axis=(1, 3)).astype(np.int64)
+        img[~DISK] = 0
+        return img
+    b = SUB // fine; assert b * fine == SUB
+    img = inside.reshape(N * fine, b, N * fine, b).sum(axis=(1, 3)).astype(np.int64)
+    img[~np.repeat(np.repeat(DISK, fine, 0), fine, 1)] = 0
     return img
 
 def place(strips, turn_deg=0.0, dx=0.0, dy=0.0):

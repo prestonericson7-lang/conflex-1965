@@ -144,3 +144,25 @@ are with A2 (5.92 and 6.50).
 
 **P3 and P4** stay graded on the first design, with the A2 runs beside. A3 is a test of a cause; whether it is also run beside P3 and P4 is
 decided after its grades, and said so.
+
+## Grades of P1f, P2f and P1g, 10:16 AM (MEASURED; results/a3.json; test_a3.py)
+
+(Beside the A2 grade above, 10:16 AM: "L2 fires 15 to 13 times" should read 13 to 15 times. The line is kept as written.)
+
+- **P1f: FAILED.** With A3, over the 12 turns four counts now hold: L0 within 0.6%, L1 within 10.0%, L3 within 12.8%, L5 within 11.3%.
+  L2 runs 0 to 48 and L4 28 to 56 (35.0%).
+- **P2f: FAILED.** Over the 13 shifts: L0 within 1.0%, L1 5.1%, L3 10.5%, L5 6.2%; L2 0 to 5, L4 31 to 46 (22.0%).
+- **P1g: FAILED.** L3's ratio of largest to smallest count over the turns fell from 6.50 to 1.22, but L2's has no bound now
+  (0 at a turn of 0, 48 at 30 degrees).
+
+**What these grades say.** Reading half-pixels steadied L3 and cut the spread again: 0.070 on the turns and 0.034 on the shifts, against
+the first design's 0.214 and 0.184. What is left is not a knife edge (exploratory, after the grades: explore_knife_edge.py,
+explore_l2_angles.py). At a turn of 0, L2's windows hardly come near 4/5: 0.02% of the windows with any shape lie within 0.05 of it,
+and L2 fires 4 times even at a threshold of 0.75. At 30 degrees it fires 67, 48 and 27 times at 0.75, 0.80 and 0.85. Tracing
+L2's events to their pulses shows where they come from: at a turn of 30 degrees, from strips lying near the pixel grid's axis (167 to
+180 degrees) or near its diagonal (0 degrees); at a turn of 0, the same angles to the yard fall on slanted strips, and
+nothing fires. The yard is the same to the strips; only their angle to the film's grid has changed. So the last of the turn's effect lives
+in my film, which is a grid, where Scope's was continuous. A gridless film (line integrals taken from the shapes themselves) would test
+that, at a cost in CPU this PC's rule does not allow while both cards run the ant census. It is left open, and said so here.
+
+**A3 beside P3 and P4: not run.** A3 costs about four times A2's CPU per picture. P3 and P4 keep the first design graded and A2 beside, as filed.

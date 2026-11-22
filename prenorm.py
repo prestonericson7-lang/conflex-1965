@@ -23,14 +23,32 @@ def bands(strips):
 BANDS = bands(K)                                                # the design as first fixed: 64 strips
 L = np.round(127 * np.cos(np.pi * np.outer(np.arange(1, 7), np.arange(T) + 0.5) / T)).astype(np.int64)   # L0..L5: cosines k = 1..6, integer weights
 
-def scan(img, strip=1, strips=K):
+def _fine_grid(fine):
+    """Part centers in units of 1 / (2 fine) pixel, the field's center at 0, kept where their whole pixel is in the field."""
+    h = 2 * np.arange(N * fine, dtype=np.int64) + 1 - N * fine
+    gx, gy = np.meshgrid(h, h)
+    keep = np.repeat(np.repeat(_disk.reshape(N, N), fine, 0), fine, 1).ravel()
+    return gx.ravel()[keep], gy.ravel()[keep], keep
+
+def scan(img, strip=1, strips=K, fine=1):
     """One full turn of the integral scanner's video: one pulse per strip (64 as first fixed, 403 in amendment A2), each followed by 16 samples of dark spacer. With strip=1 (the design as first
     fixed) a pulse is the 128 one-pixel bands' line integrals; with strip=2 (amendment A1, the patent's 2T(omega)0 rule) each sample is the sum
     of two neighboring bands, 129 samples as the strip enters, crosses and leaves the field."""
-    v = np.asarray(img, np.int64).ravel()[_disk]
-    parts = []; B = bands(strips)
+    if fine == 1:
+        v = np.asarray(img, np.int64).ravel()[_disk]; B = bands(strips); nb = N
+    else:                                                       # amendment A3: each pixel read as fine x fine parts; one spare band each side
+        gx, gy, keep = _fine_grid(fine); v = np.asarray(img, np.int64).ravel()[keep]; nb = N + 2
+        ang = 2 * np.pi * np.arange(strips) / strips
+        ck = np.round((1 << Q) * np.cos(ang)).astype(np.int64); sk = np.round((1 << Q) * np.sin(ang)).astype(np.int64)
+        shift = int(np.log2(2 * fine)); assert 1 << shift == 2 * fine
+    parts = []
     for k in range(strips):
-        pk = np.rint(np.bincount(B[k], weights=v, minlength=N)).astype(np.int64)    # float sums of integers below 2^53 are exact
+        if fine == 1:
+            bk = B[k]
+        else:
+            bk = (((gx * ck[k] + gy * sk[k]) >> Q) >> shift) + N // 2 + 1
+            assert bk.min() >= 0 and bk.max() < nb
+        pk = np.rint(np.bincount(bk, weights=v, minlength=nb)).astype(np.int64)     # float sums of integers below 2^53 are exact
         assert pk.sum() == v.sum()
         if strip > 1:
             pk = np.convolve(pk, np.ones(strip, np.int64)); assert pk.dtype == np.int64 and pk.sum() == strip * v.sum()
@@ -53,6 +71,6 @@ def counts_of_video(video):
     rising = e & ~np.vstack([np.zeros((1, e.shape[1]), bool), e[:-1]])
     return [int(x) for x in rising.sum(0)]
 
-def counts(img, strip=1, strips=K):
+def counts(img, strip=1, strips=K, fine=1):
     """The six counters after one full turn."""
-    return counts_of_video(scan(img, strip, strips))
+    return counts_of_video(scan(img, strip, strips, fine))
