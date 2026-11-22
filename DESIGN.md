@@ -49,3 +49,10 @@ P1 grade says so. The line is kept as written.)
 
 (Beside "The railyard", 10:53 AM: the farthest corner ends 47.5 pixels from the center, not 47.1; I left out the tracks' half-width. The line
 is kept as written.)
+
+(Beside "The integral scanner", November 22, 2:45 PM: a number from the sources, found since. Holford's own 1963 scanner patent, US
+3,508,065 (the integral scan this prenormalizer was built on), describes an embodiment with "thirty-nine reflective grid lines" around
+the cylinder, its scanning lines coming at the image "at angles differing by nine degrees from each other." If the prenormalizer kept
+that cylinder, its turn was sampled more coarsely than this rebuild's first design (64 strips), and far more coarsely than A2's 403. The
+1967 patent itself gives no number. The same 1963 patent also says that grid lines 180 degrees apart give "mere images of one another"
+when their number is even, as P1's turns found.)
