@@ -111,3 +111,36 @@ else is unchanged. In the code it is prenorm.counts(img, strip=2, strips=403).
 **P1e (70%).** With A2, the spread (as in P1c) is at most half the first design's (0.214 on the turns, 0.184 on the shifts), on both sets.
 
 **P3 and P4** stay graded on the first design. The runs reported beside their grades are now on the A2 scanner, not A1's.
+
+## Grades of P1d, P2d and P1e, 10:12 AM (MEASURED; results/a2.json; test_a2.py)
+
+- **P1d: FAILED.** With A2, over the 12 turns three counts now hold: L0 within 1.6%, L1 within 10.0%, L5 within 9.5%. Three do not:
+  L2 13 to 77, L3 10 to 65, L4 28 to 42 (21.1%).
+- **P2d: FAILED.** Over the 13 shifts: L0 within 1.5%, L1 within 11.0%, L5 within 12.1%; L2 13 to 24 (31.6%), L3 9 to 22 (56.3%),
+  L4 21 to 34 (27.8%).
+- **P1e: HELD.** The spread fell from 0.214 to 0.093 on the turns and from 0.184 to 0.059 on the shifts: more than halved on both.
+
+**What these grades say.** Sampling the turn finely was most of the cure: the counts are about six times larger, the broad filters and L5
+hold everywhere, and the spread is less than half. What is left has a pattern of its own. L2 fires 15 to 13 times when the tracks lie
+square to the pixel grid (turns of 0, 90, 180 and 270 degrees) and 77 or 76 times at 30, 120, 210 and 300 degrees; L3 likewise. A turn of
+180 degrees gives exactly the counts of no turn at all, as it must for any scan of a full turn: it reverses every pulse, and reversing a
+cosine template only flips its sign, which |Phi| ignores. The grid pattern points at my scanner, not at Scope's. It drops each whole pixel's
+light into the one band its center falls in, and when a strip crosses the grid at a slant, neighboring bands catch uneven numbers of pixel
+centers: a fine ripple that the middle filters answer. Scope's machine read continuous film, which has no grid.
+
+## Amendment A3, filed 10:12 AM, after the grades of A2 and before any run of what it describes
+
+A3 is A2 with each pixel read as four half-pixels: the picture's 8 x 8 sub-points summed in 4 x 4 blocks (0 to 16 each, the same total
+light), and each half-pixel's light going to the band its center falls in, so the ripple's size per band is a quarter of what it was.
+Rendering, strips, taps, L0 to L5, threshold and counters are unchanged. In the code it is
+prenorm.counts(shapes.render(strips, fine=2), strip=2, strips=403, fine=2).
+
+**P1f (40%).** With A3, P1's test: each of the six counts within 15% of its mean over the 12 turns.
+
+**P2f (40%).** With A3, P2's test: each count within 15% of its mean over the 13 shifts.
+
+**P1g (65%).** With A3, the ratio of L2's largest count to its smallest over P1's turns, and the same for L3, are both at most half what they
+are with A2 (5.92 and 6.50).
+
+**P3 and P4** stay graded on the first design, with the A2 runs beside. A3 is a test of a cause; whether it is also run beside P3 and P4 is
+decided after its grades, and said so.

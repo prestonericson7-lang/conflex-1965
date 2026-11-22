@@ -2,29 +2,35 @@
 the image once while 64 mirror strips sweep across it; each strip gives one pulse, the image's line integrals at one angle. Six normalized
 time-domain filters (NTDFs) correlate the last T samples of that video with fixed reference functions L0 to L5, and six counters count how
 often each one's |correlation| rises above the threshold during one full turn. Every choice the patent leaves open is written in DESIGN.md."""
+from functools import lru_cache
 import numpy as np
 from numpy.lib.stride_tricks import sliding_window_view
 Q, K, N, T, GAP = 14, 64, 128, 16, 16
 THETA_NUM, THETA_DEN = 4, 5                                     # the threshold, 4/5
-_ang = 2 * np.pi * np.arange(K) / K
-CK = np.round((1 << Q) * np.cos(_ang)).astype(np.int64)
-SK = np.round((1 << Q) * np.sin(_ang)).astype(np.int64)
 _h = 2 * np.arange(N, dtype=np.int64) - (N - 1)               # pixel centers in half-pixel units; the field's center is 0
 HX, HY = np.meshgrid(_h, _h)
 _disk = (HX ** 2 + HY ** 2 <= (2 * 64) ** 2).ravel()           # the same disk as shapes.DISK
 _hx, _hy = HX.ravel()[_disk], HY.ravel()[_disk]
-BANDS = np.stack([(((_hx * CK[k] + _hy * SK[k]) >> Q) >> 1) + N // 2 for k in range(K)])   # each field pixel's one-pixel band, for each strip
-assert BANDS.min() >= 0 and BANDS.max() < N
+
+@lru_cache(maxsize=None)
+def bands(strips):
+    """Each field pixel's one-pixel band for each of the strips, from Q14 integer cosines and sines of 360 k / strips degrees."""
+    ang = 2 * np.pi * np.arange(strips) / strips
+    ck = np.round((1 << Q) * np.cos(ang)).astype(np.int64); sk = np.round((1 << Q) * np.sin(ang)).astype(np.int64)
+    b = np.stack([(((_hx * ck[k] + _hy * sk[k]) >> Q) >> 1) + N // 2 for k in range(strips)])
+    assert b.min() >= 0 and b.max() < N
+    return b
+BANDS = bands(K)                                                # the design as first fixed: 64 strips
 L = np.round(127 * np.cos(np.pi * np.outer(np.arange(1, 7), np.arange(T) + 0.5) / T)).astype(np.int64)   # L0..L5: cosines k = 1..6, integer weights
 
-def scan(img, strip=1):
-    """One full turn of the integral scanner's video: 64 pulses, each followed by 16 samples of dark spacer. With strip=1 (the design as first
+def scan(img, strip=1, strips=K):
+    """One full turn of the integral scanner's video: one pulse per strip (64 as first fixed, 403 in amendment A2), each followed by 16 samples of dark spacer. With strip=1 (the design as first
     fixed) a pulse is the 128 one-pixel bands' line integrals; with strip=2 (amendment A1, the patent's 2T(omega)0 rule) each sample is the sum
     of two neighboring bands, 129 samples as the strip enters, crosses and leaves the field."""
     v = np.asarray(img, np.int64).ravel()[_disk]
-    parts = []
-    for k in range(K):
-        pk = np.rint(np.bincount(BANDS[k], weights=v, minlength=N)).astype(np.int64)    # float sums of integers below 2^53 are exact
+    parts = []; B = bands(strips)
+    for k in range(strips):
+        pk = np.rint(np.bincount(B[k], weights=v, minlength=N)).astype(np.int64)    # float sums of integers below 2^53 are exact
         assert pk.sum() == v.sum()
         if strip > 1:
             pk = np.convolve(pk, np.ones(strip, np.int64)); assert pk.dtype == np.int64 and pk.sum() == strip * v.sum()
@@ -47,6 +53,6 @@ def counts_of_video(video):
     rising = e & ~np.vstack([np.zeros((1, e.shape[1]), bool), e[:-1]])
     return [int(x) for x in rising.sum(0)]
 
-def counts(img, strip=1):
+def counts(img, strip=1, strips=K):
     """The six counters after one full turn."""
-    return counts_of_video(scan(img, strip))
+    return counts_of_video(scan(img, strip, strips))
