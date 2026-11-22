@@ -29,3 +29,23 @@ grid, a patchwork of fields), all drawn at random rotations and positions, right
 real machine on rotated railyards was 51 of 54, 94%.
 
 **P4 (70%).** CONFLEX on the raw picture, without the prenormalizer, on the same examples: no better than 75% on the held-out ones.
+
+## Grades of C0 and C1, 9:59 AM (MEASURED; results/c0.json and c1.json; conflex.py, test_c0.py, test_c1.py)
+
+- **C0: HELD.** The C1 test, run twice, each time in a fresh Python, wrote the same results file byte for byte (SHA-256 87c372c584bc4216...), and the D-field's
+  wiring comes out the same every time (SHA-256 a2448eda6163b890...).
+- **C1: HELD.** 10,000 D-cells, A = N = 5, wired by a 31-stage maximal-length shift register (a[n+31] = a[n] xor a[n+3]; checked primitive), 20 random
+  stimuli at each fill. The share of zero outputs against equation (21): Y = 0.1, 0.46731 against 0.46168 (+0.56 points); Y = 0.3, 0.26677 against 0.27156 (−0.48);
+  Y = 0.5, 0.24438 against 0.24609 (−0.17). All within the 1 point allowed.
+
+**What the grade leaves out, said plainly** (exploratory, after the grade: hypergeom_note.py, explore_c1_wiring.py, results/explore_c1_wiring.json).
+Equation (21) assumes each S-cell is on independently with chance Y. The test's stimuli had exactly round(Y x 400) cells on, and each D-cell's ten
+inputs are distinct cells, so the exact expectation for this test is hypergeometric: 0.45789, 0.27090 and 0.24575. Against those the gaps were +0.94, −0.41
+and −0.14 points, the first just inside the line. The cause of that gap is the test, not the machine. The stimuli were drawn from the same
+M-sequence as the wiring (another seed of the same polynomial is the same sequence at another offset), and the two streams share its linear
+structure. With 400 stimuli at each fill: shift-register stimuli on shift-register wiring (three seeds) give +0.78 to +0.80 points at Y = 0.1
+(27 to 29 standard errors) and −0.14 to −0.20 at Y = 0.3 and 0.5 (6.4 to 8.9 standard errors). When either the stimuli or the wiring come from
+NumPy's PCG64 instead, every gap is within 0.04 points (within 1.9 standard errors). Scope's machine saw pictures, not shift-register output,
+so this is a flaw of my test, and the rule from here on is: the machine's own wiring comes from the M-sequence, as in the patent's sequential
+version; everything a test draws at random (stimuli, rotations, positions, which examples train and which are held out) comes from PCG64 with
+fixed seeds, sharing nothing with the machine.
