@@ -191,3 +191,10 @@ railyard's close tracks light more blocks than any other kind, so the railyard M
 But the raw picture is hard for a fairer rule too: a plain nearest-mean rule on the same blocks gets 38.3%. Turned and moved at
 random, one picture's blocks do not line up with the next picture of the same kind; the prenormalizer's counts do, and that is what it was
 built for.
+
+(Beside the P3 and P4 grades above, 10:23 AM: "the patent's own sampling rules" and "sampled as the patent's own rule asks" overstate A2. The
+patent's rule, 2T(omega)0 taps, is for the sweep, and A1 follows it. A2's 403 strips carry the same rule to the turn, and that step is mine:
+the patent says nothing about how many strips. The lines above are kept as written.)
+
+(Beside the A3 grade above, 10:24 AM: only L2's events were traced to their strips. L4's movement was not traced, so "the last of the turn's
+effect lives in my film" is shown for L2 alone. The line is kept as written.)
