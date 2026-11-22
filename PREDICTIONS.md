@@ -166,3 +166,7 @@ in my film, which is a grid, where Scope's was continuous. A gridless film (line
 that, at a cost in CPU this PC's rule does not allow while both cards run the ant census. It is left open, and said so here.
 
 **A3 beside P3 and P4: not run.** A3 costs about four times A2's CPU per picture. P3 and P4 keep the first design graded and A2 beside, as filed.
+
+(Beside the A3 grade above, 10:16 AM: its angles came out wrong from my own arithmetic. I took them mod 180, so strips at 181 to 186 degrees
+wrapped to 1 to 6 and were counted as the diagonal's. Read instead: from strips within 13 degrees of the grid's axis (167 to 186 degrees)
+or at 49 to 50 degrees, 4 degrees from its diagonal. The line above is kept as written.)
