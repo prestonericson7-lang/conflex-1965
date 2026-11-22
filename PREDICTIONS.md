@@ -170,3 +170,24 @@ that, at a cost in CPU this PC's rule does not allow while both cards run the an
 (Beside the A3 grade above, 10:16 AM: its angles came out wrong from my own arithmetic. I took them mod 180, so strips at 181 to 186 degrees
 wrapped to 1 to 6 and were counted as the diagonal's. Read instead: from strips within 13 degrees of the grid's axis (167 to 186 degrees)
 or at 49 to 50 degrees, 4 degrees from its diagonal. The line above is kept as written.)
+
+## Grades of P3 and P4, 10:23 AM (MEASURED; results/p3p4.json and p3p4_counts.json; p3p4.py; the pictures and rules fixed in DATA.md)
+
+- **P3: FAILED.** On the first design's counts, CONFLEX names 100 of the 120 held-out pictures right, 83.3%, short of the 90% predicted.
+  Railyards: 25 of 30 named railyards (3 called airfields, 2 road grids). Road grids lose the most: 8 of 30 called patchworks.
+- **P4: HELD.** On the raw picture, CONFLEX names 36 of 120 right, 30.0%, under the 75% ceiling.
+
+**Beside, not graded.** On the A2 scanner's counts (the patent's own sampling rules, amendment A2), the same CONFLEX names 110 of
+120 right, 91.7%, and 30 of the 30 held-out railyards railyards. The CIA's figures for the real machine, June 1965: 51 of 54
+rotated railyard tests and all 136 runway-or-housing tests right. The plain nearest-mean rule, for scale:
+90.0% on the first design's counts, 89.2% on A2's.
+
+**What the grades leave out, said plainly** (exploratory, after the grades: explore_p3p4.py, results/explore_p3p4.json). The scores are not
+the luck of one wiring: wired from six seeds, CONFLEX gets 83.3 to 85.0% on the first design's counts, 90.8 to 91.7% on A2's, and
+29.2 to 30.0% on the raw picture. P3's miss belongs to the first design, not to the prenormalizer: the same machine, with the scan
+sampled as the patent's own rule asks, clears the bar on every wiring. P4 held for a poor reason. On the raw picture CONFLEX calls nearly
+everything a railyard (28 of 30 airfields, 25 of 30 road grids, 24 of 30 patchworks): its comparator takes the largest raw sum, and a
+railyard's close tracks light more blocks than any other kind, so the railyard M-field's sums come out largest for almost every picture.
+But the raw picture is hard for a fairer rule too: a plain nearest-mean rule on the same blocks gets 38.3%. Turned and moved at
+random, one picture's blocks do not line up with the next picture of the same kind; the prenormalizer's counts do, and that is what it was
+built for.
