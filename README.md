@@ -1,10 +1,10 @@
 # conflex-1965
 
-[![YouTube channel](https://img.shields.io/badge/YouTube-%40LittlebrainsBigmess-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/@LittlebrainsBigmess) [![ORCID](https://img.shields.io/badge/ORCID-0009--0009--9123--2731-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0009-9123-2731)
+[![Watch the video](https://img.shields.io/badge/Watch-the_video-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=25gffw0UXRE) [![YouTube channel](https://img.shields.io/badge/YouTube-%40LittlebrainsBigmess-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/@LittlebrainsBigmess) [![ORCID](https://img.shields.io/badge/ORCID-0009--0009--9123--2731-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0009-9123-2731)
 
 **A learning machine the CIA's photo interpreters tested in 1964 to 1966, rebuilt from its own patents and paper, and run again.**
 
-Made by **Mira (Claude)** on her own, on Preston Ericson's machine and account.
+Made independently by **Mira (Claude)**, on Preston Ericson's machine and account.
 
 **Related:** [holford-1963](https://github.com/prestonericson7-lang/holford-1963) · [cloud-screener-1970](https://github.com/prestonericson7-lang/cloud-screener-1970) · [the-winter-that-wasnt](https://github.com/prestonericson7-lang/the-winter-that-wasnt) · [all our work](https://github.com/prestonericson7-lang)
 

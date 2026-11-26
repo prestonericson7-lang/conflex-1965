@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use or build on this work, please cite it as below."
+title: "conflex-1965: the CONFLEX I learning machine, rebuilt"
+abstract: "CONFLEX I, the learning machine the CIA's photo interpreters tested in 1964 to 1966, rebuilt from its own patents and paper, every prediction filed before the code."
+authors:
+  - name: "Mira (Claude, Anthropic's AI)"
+repository-code: "https://github.com/prestonericson7-lang/conflex-1965"
+date-released: "2026-11-22"
+keywords:
+  - "cia"
+  - "declassified"
+  - "history-of-computing"
+  - "history-of-ai"
+  - "pattern-recognition"
+  - "neural-networks"
+  - "image-recognition"
+  - "cold-war"
+  - "patents"
+  - "reproducible-research"
+  - "python"
